@@ -9,7 +9,6 @@ import android.os.Bundle;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private ArrayList<Country> arrayList;
     private Adapter adapter;
 
@@ -31,14 +30,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setClick() {
-        adapter.setListener(new Listener() {
-            @Override
-            public void onClick(Country country) {
+        adapter.setListener(country -> {
 
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
-                intent.putExtra("key1", country.getId());
-                startActivity(intent);
-            }
+            Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            intent.putExtra("key1", country.getId());
+            startActivity(intent);
         });
     }
 
@@ -46,16 +42,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void createFlags() {
         arrayList = new ArrayList<>();
-        arrayList.add(new Country(R.drawable.ic_kg,"Kyrgyzstan","Bishkek", 111));
-        arrayList.add(new Country(R.drawable.ic_kz,"Kazakhstan","Nur-Sultan", 222));
-        arrayList.add(new Country(R.drawable.ic_kr,"Korea","Seoul", 333));
-        arrayList.add(new Country(R.drawable.ic_jp,"Japan","Tokyo",444));
-        arrayList.add(new Country(R.drawable.ic_ru,"Russia","Moscow",555));
+        arrayList.add(new Country(R.drawable.ic_cas,"Eurasia","", 111));
+
+        arrayList.add(new Country(R.drawable.ic_caf,"Africa","", 222));
+
+        arrayList.add(new Country(R.drawable.ic_cna,"North America","", 333));
+
+        arrayList.add(new Country(R.drawable.ic_csa,"South America","",444));
+
+        arrayList.add(new Country(R.drawable.ic_coc,"Australia","",555));
+
+        arrayList.add(new Country(R.drawable.ic_ceu,"Антарктида","",666));
 
     }
 
     private void initrv() {
-        recyclerView = findViewById(R.id.recycler);
+        RecyclerView recyclerView = findViewById(R.id.recycler);
         adapter = new Adapter();
         adapter.setList(arrayList);
         recyclerView.setAdapter(adapter);
